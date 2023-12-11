@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add Item</title>
 </head>
 <body>
-<form action="/items/add" method="post">
-  <input type="text" name="title"><br>
-  <textarea name="description"></textarea>
-  <select name="category.id">
-    <option th:each="category: ${categories}"
-            th:text="${category.name}" th:value="${category.id}"></option>
-  </select>
-  <input type="submit" value="create">
+<div th:include="fragment/header::headerFragment"></div>
+
+<form action="/items/add" method="post" enctype="multipart/form-data">
+    <input type="text" name="title"><br>
+    <textarea name="description"></textarea>
+    <select name="category.id">
+        <option th:each="category: ${categories}"
+                th:text="${category.name}" th:value="${category.id}"></option>
+    </select> <br>
+    <input type="file" name="image"><br>
+    <div th:each="tag, status: ${hashtags}" >
+        <span th:text="${tag.name}"></span>
+        <input type="checkbox" th:name="hashtagList[__${status.index}__].id" th:value="${tag.id}">
+    </div>
+    <input type="submit" value="create">
 </form>
+<div th:include="fragment/header::footerFragment"></div>
+
 </body>
 </html>

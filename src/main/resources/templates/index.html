@@ -2,11 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcom!</title>
+    <title>Title</title>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <style>
+        .hrefs {
+            font-size: 20px;
+            color: green;
+        }
+    </style>
 </head>
 <body>
-<h1>Welcom!</h1>
-<a href="/categories"> Categories Page</a> <br>
+<div th:include="fragment/header::headerFragment"></div>
+
+<a href="/categories" th:text="#{index.categories.page}"></a> <br>
 <a href="/items"> Items Page</a>
+<a href="/user/register" th:if="${user == null}" th:text="#{index.registration}"></a>
+<a href="/customLogin" th:if="${user == null}" th:text="#{index.login}"></a>
 </body>
+<script>
+    $(document).ready(function () {
+        let aTags = $("a");
+        aTags.addClass("hrefs");
+        // for (let aTag of aTags) {
+        //
+        // }
+    })
+
+</script>
 </html>
